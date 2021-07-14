@@ -36,8 +36,7 @@ jobs:
         id: repo
         run: |
           if [[ "$GITHUB_REPOSITORY" != "bitwarden/server" ]]; then
-            #echo "::set-output name=repo_environment::staging"
-            echo "::set-output name=repo_environment::production"
+            echo "::set-output name=repo_environment::staging"
           else
             echo "::set-output name=repo_environment::production"
           fi
