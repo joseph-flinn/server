@@ -194,7 +194,7 @@ jobs:
                     dct-delegate-2-key"
 
       - name: Login to Azure - QA Subscription
-        if: env.ENVIRONMENT == 'production' && ${{ matrix.service_name }} == "EventsProcessor"
+        if: env.ENVIRONMENT == 'production' && matrix.service_name == "EventsProcessor"
         uses: Azure/login@77f1b2e3fb80c0e8645114159d17008b8a2e475a
         with:
           creds: ${{ secrets.AZURE_QA_KV_CREDENTIALS }}
