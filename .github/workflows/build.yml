@@ -185,7 +185,7 @@ jobs:
 
       - name: Retrieve secrets
         id: retrieve-secrets
-        if: env.ENVIRONMENT == 'production' (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/rc')
+        if: env.ENVIRONMENT == 'production' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/rc')
         uses: Azure/get-keyvault-secrets@80ccd3fafe5662407cc2e55f202ee34bfff8c403
         with:
           keyvault: "bitwarden-prod-kv"
