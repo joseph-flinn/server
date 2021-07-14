@@ -1,4 +1,4 @@
-name: Build
+name: Test Build
 
 on:
   workflow_dispatch:
@@ -16,7 +16,8 @@ jobs:
         id: repo
         run: |
           if [[ "$GITHUB_REPOSITORY" != "bitwarden/server" ]]; then
-            echo "::set-output name=repo_environment::staging"
+            #echo "::set-output name=repo_environment::staging"
+            echo "::set-output name=repo_environment::production"
           else
             echo "::set-output name=repo_environment::production"
           fi
@@ -48,4 +49,6 @@ jobs:
 
           echo "Secret should always exist: ${{ secrets.SECRET_1 }}"
           echo "Secret should exist only in prod: ${{ secrets.SECRET_2 }}"
+
+          # Testing staging was a succcess. Only the first showed the stars
 
