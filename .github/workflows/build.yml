@@ -50,7 +50,8 @@ jobs:
       REPO_ENVIRONMENT: ${{ needs.setup.outputs.repo_environment }}
     steps:
       - name: Testing environment
-        run: echo "Environment: $REPO_ENVIRONMENT"
+        run: |
+          echo "Environment: $REPO_ENVIRONMENT"
 
 
   testing:
