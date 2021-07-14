@@ -51,4 +51,5 @@ jobs:
           echo "Secret should exist only in prod: ${{ secrets.SECRET_2 }}"
 
           # Testing staging was a succcess. Only the first showed the stars
+          # Testing production was a success. Both showed the stars
 
