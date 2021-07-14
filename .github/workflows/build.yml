@@ -26,34 +26,6 @@ jobs:
         run: cloc --include-lang C#,SQL,Razor,"Bourne Shell",PowerShell,HTML,CSS,Sass,JavaScript,TypeScript --vcs git
 
 
-  setup:
-    name: Setup
-    runs-on: ubuntu-20.04
-    outputs:
-      repo_environment: ${{ steps.repo.outputs.repo_environment}}
-    steps:
-      - name: Repo check
-        id: repo
-        run: |
-          if [[ "$GITHUB_REPOSITORY" != "bitwarden/server" ]]; then
-            echo "::set-output name=repo_environment::staging"
-          else
-            echo "::set-output name=repo_environment::production"
-          fi
-
-
-  test-setup:
-    name: Test Setup
-    runs-on: ubuntu-20.04
-    needs: setup
-    env:
-      REPO_ENVIRONMENT: ${{ needs.setup.outputs.repo_environment }}
-    steps:
-      - name: Testing environment
-        run: |
-          echo "Environment: $REPO_ENVIRONMENT"
-
-
   testing:
     if: false
     name: Testing

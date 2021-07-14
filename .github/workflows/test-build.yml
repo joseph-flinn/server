@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs: {}
+
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-20.04
+    outputs:
+      repo_environment: ${{ steps.repo.outputs.repo_environment}}
+    steps:
+      - name: Repo check
+        id: repo
+        run: |
+          if [[ "$GITHUB_REPOSITORY" != "bitwarden/server" ]]; then
+            echo "::set-output name=repo_environment::staging"
+          else
+            echo "::set-output name=repo_environment::production"
+          fi
+
+
+  test-setup:
+    name: Test Setup
+    runs-on: ubuntu-20.04
+    needs: setup
+    env:
+      REPO_ENVIRONMENT: ${{ needs.setup.outputs.repo_environment }}
+    steps:
+      - name: Testing environment
+        run: |
+          echo "Environment: $REPO_ENVIRONMENT"
+
+
+  test-environment:
+    name: Test Environment
+    runs-on: ubuntu-20.04
+    needs: setup
+    environment: ${{ needs.setup.outputs.repo_environment }}
+    env:
+      REPO_ENVIRONMENT: ${{ needs.setup.outputs.repo_environment }}
+    steps:
+      - name: Testing GitHub Environments 
+        run: |
+          echo "Environment: $REPO_ENVIRONMENT"
+
+          echo "Secret should always exist: ${{ secrets.SECRET_1 }}"
+          echo "Secret should exist only in prod: ${{ secrets.SECRET_2 }}"
+
