@@ -10,6 +10,7 @@ on:
 
 jobs:
   cloc:
+    if: false
     name: CLOC
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +26,19 @@ jobs:
         run: cloc --include-lang C#,SQL,Razor,"Bourne Shell",PowerShell,HTML,CSS,Sass,JavaScript,TypeScript --vcs git
 
 
+  setup:
+    name: Setup
+    runs-on: ubuntu-20.04
+    outputs:
+      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Repo check
+        run: |
+          echo "GitHub Repository: $GITHUB_REPOSITORY"
+
+
   testing:
+    if: false
     name: Testing
     runs-on: windows-latest
     steps:
